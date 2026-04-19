@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="간단한 게시판 홈페이지">
+  <title>🗒️ 게시판</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="bg-blur"></div>
+
+  <header class="header">
+    <div class="header-inner">
+      <h1 class="logo">🗒️ 게시판</h1>
+      <button class="btn-write" id="btn-open-modal" onclick="openModal()">✏️ 글쓰기</button>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="board-controls">
+      <span class="post-count" id="post-count">전체 0개</span>
+      <input class="search-input" id="search-input" type="text" placeholder="🔍 검색..." oninput="renderPosts()">
+    </div>
+    <div class="board" id="board"></div>
+  </main>
+
+  <!-- 글쓰기 모달 -->
+  <div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h2 id="modal-title">✏️ 새 글 작성</h2>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <input class="modal-input" id="input-title" type="text" placeholder="제목을 입력하세요" maxlength="60">
+      <input class="modal-input" id="input-author" type="text" placeholder="작성자" maxlength="20">
+      <textarea class="modal-textarea" id="input-content" placeholder="내용을 입력하세요" maxlength="2000"></textarea>
+      <div class="modal-footer">
+        <button class="btn-cancel" onclick="closeModal()">취소</button>
+        <button class="btn-submit" id="btn-submit" onclick="submitPost()">등록</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 게시글 보기 모달 -->
+  <div class="modal-overlay" id="view-overlay" onclick="closeView()">
+    <div class="modal modal-view" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h2 id="view-title"></h2>
+        <button class="modal-close" onclick="closeView()">✕</button>
+      </div>
+      <div class="view-meta" id="view-meta"></div>
+      <div class="view-content" id="view-content"></div>
+      <div class="modal-footer">
+        <button class="btn-cancel" onclick="closeView()">닫기</button>
+        <button class="btn-delete" id="btn-delete" onclick="deleteCurrentPost()">🗑️ 삭제</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
